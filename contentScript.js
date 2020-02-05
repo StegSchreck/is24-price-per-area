@@ -1,6 +1,8 @@
 'use strict';
 
-let resultListItems = document.getElementsByTagName("article");
+const resultListItems = document.getElementsByTagName("article");
+const priceElementSelector = 'dl:first-child dd';
+const areaElementSelector = 'dl:nth-child(2) dd';
 
 for (const resultListItem of resultListItems) {
   if (resultListItem.classList.contains("result-list-entry--project") ||
@@ -8,31 +10,21 @@ for (const resultListItem of resultListItems) {
     continue;
   }
   const resultListItemAttributes = resultListItem.querySelector('[data-is24-qa="attributes"]');
-  const price = extractPrice(resultListItemAttributes);
-  const area = extractArea(resultListItemAttributes);
+  const price = extractValue(resultListItemAttributes, priceElementSelector);
+  const area = extractValue(resultListItemAttributes, areaElementSelector);
   const pricePerArea = (price / area).toFixed(2);
   setTimeout(function(){ insertPricePerArea(resultListItemAttributes, pricePerArea)}, 2000);
-
 }
 
-function extractPrice(resultListItemAttributes) {
-  const resultListItemPriceElement = resultListItemAttributes.querySelector('dl:first-child dd');
-  const resultListItemPrice = resultListItemPriceElement.textContent
+function extractValue(resultListItemAttributes, selector) {
+  const resultListItemValueElement = resultListItemAttributes.querySelector(selector);
+  const resultListItemValue = resultListItemValueElement.textContent
     .replace("€", "")
-    .replace(".", "")
-    .replace(",", ".")
-    .trim();
-  return parseFloat(resultListItemPrice);
-}
-
-function extractArea(resultListItemAttributes) {
-  const resultListItemAreaElement = resultListItemAttributes.querySelector('dl:nth-child(2) dd');
-  const resultListItemArea = resultListItemAreaElement.textContent
     .replace("m²", "")
     .replace(".", "")
     .replace(",", ".")
     .trim();
-  return parseFloat(resultListItemArea);
+  return parseFloat(resultListItemValue);
 }
 
 function insertPricePerArea(resultListItemAttributes, pricePerArea) {
