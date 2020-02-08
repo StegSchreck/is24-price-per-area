@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "IS24 Price Per Area",
-  "version": "1.0",
-  "description": "Show price per m² on the search result page of ImmobilienScout24. Grouped results (such as projects) and hidden items are ignored. Not affiliated with ImmobilienScout24.",
+  "version": "1.1",
+  "description": "Show price per m² on the search result page and shortlist page of ImmobilienScout24. Not affiliated with ImmobilienScout24.",
 
   "content_scripts": [
     {
