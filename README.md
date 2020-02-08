@@ -3,11 +3,11 @@
 </p>
 
 # IS24 Price Per Area
-Chrome Extension for showing the price per m² on the search result pages of ImmobilienScout24.
+Chrome Extension for showing the price per m² on the search result pages and the shortlist page of ImmobilienScout24.
 
 This extension is designed to only be active on `https://*.immobilienscout24.de`.
 
-The implementation details of ImmobilienScout24 make it necessary to include a 1 second delay before displaying the price per area value.
+The implementation details of ImmobilienScout24 make it necessary to include a 2 seconds delay before displaying the price per area value.
 
 ## Installation
 Currently, this extension is not listed on the official Chrome Web Store.
