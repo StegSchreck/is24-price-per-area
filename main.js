@@ -3,34 +3,21 @@
 setTimeout(function() { main(); }, 2000);
 
 function main() {
-  if (onShortlist()) {
-    analyseShortlistPage();
-  }
-  if (onSearchResultPage()) {
+  if (searchResultPageIsShown()) {
     analyseSearchResultPage();
   }
-  if (onExpose()) {
-    handleExpose();
+  if (shortlistPageIsShown()) {
+    analyseShortlistPage();
+  }
+  if (exposePageIsShown()) {
+    analyseExposePage();
   }
 }
 
-function onShortlist() {
-  return window.location.pathname.startsWith('/merkzettel/');
-}
 
-function onSearchResultPage() {
+// SEARCH RESULT PAGE /////////////////////////////////////////////////////////
+function searchResultPageIsShown() {
   return window.location.pathname.startsWith('/Suche/');
-}
-
-function onExpose() {
-  return window.location.pathname.startsWith('/expose/');
-}
-
-function analyseShortlistPage() {
-  const shortlistItems = document.getElementsByClassName('shortlist-item');
-  for (const shortlistItem of shortlistItems) {
-    handleShortlistItem(shortlistItem);
-  }
 }
 
 function analyseSearchResultPage() {
@@ -58,16 +45,20 @@ function isHiddenItem(resultListItem) {
 
 function handleRegularItem(resultListItem) {
   const resultListItemAttributes = resultListItem.querySelector('[data-is24-qa="attributes"]');
-  const price = extractValue(resultListItemAttributes, 'dl:first-child dd');
-  const area = extractValue(resultListItemAttributes, 'dl:nth-child(2) dd');
+  const itemPriceValueElement = resultListItemAttributes.querySelector('dl:first-child dd');
+  const itemAreaValueElement = resultListItemAttributes.querySelector('dl:nth-child(2) dd');
+  const price = extractValue(itemPriceValueElement);
+  const area = extractValue(itemAreaValueElement);
   const pricePerArea = calculatePricePerArea(price, area);
   insertPricePerAreaToRegularItem(resultListItemAttributes, pricePerArea);
 }
 
 function handleHiddenItem(hiddenResultListItem) {
   const hiddenResultListItemAttributes = hiddenResultListItem.querySelector('.hidden-result__criteria');
-  const price = extractValue(hiddenResultListItemAttributes, 'span:first-child');
-  const area = extractValue(hiddenResultListItemAttributes, 'span:nth-child(2)');
+  const itemPriceValueElement = hiddenResultListItemAttributes.querySelector('span:first-child');
+  const itemAreaValueElement = hiddenResultListItemAttributes.querySelector('span:nth-child(2)');
+  const price = extractValue(itemPriceValueElement);
+  const area = extractValue(itemAreaValueElement);
   const pricePerArea = calculatePricePerArea(price, area);
   insertPricePerAreaToHiddenItem(hiddenResultListItemAttributes, pricePerArea);
 }
@@ -76,42 +67,13 @@ function handleGroup(groupedResultListItem) {
   const groupItems = groupedResultListItem.getElementsByClassName('grouped-listing');
   for (const groupedItem of groupItems) {
     const groupedResultListItemAttributes = groupedItem.querySelector('div:nth-child(3)>a[data-go-to-expose-referrer="RESULT_LIST_LISTING"]');
-    const price = extractValue(groupedResultListItemAttributes, '.grouped-listing__criterion:nth-child(2)');
-    const area = extractValue(groupedResultListItemAttributes, '.grouped-listing__criterion:nth-child(3)');
+    const itemPriceValueElement = groupedResultListItemAttributes.querySelector('.grouped-listing__criterion:nth-child(2)');
+    const itemAreaValueElement = groupedResultListItemAttributes.querySelector('.grouped-listing__criterion:nth-child(3)');
+    const price = extractValue(itemPriceValueElement);
+    const area = extractValue(itemAreaValueElement);
     const pricePerArea = calculatePricePerArea(price, area);
     insertPricePerAreaToGroupedItem(groupedResultListItemAttributes, pricePerArea);
   }
-}
-
-function handleShortlistItem(shortlistItem) {
-  const shortlistItemAttributes = shortlistItem.querySelector('.criteria .content:not(.estimated-cost-widget)');
-  const price = extractValue(shortlistItemAttributes, '[data-qa="attr0-value"]');
-  const area = extractValue(shortlistItemAttributes, '[data-qa="attr2-value"]');
-  const pricePerArea = calculatePricePerArea(price, area);
-  insertPricePerAreaToShortlistItem(shortlistItemAttributes, pricePerArea);
-}
-
-function handleExpose() {
-  const exposeItemAttributes = document.getElementsByClassName('main-criteria-container')[0];
-  const price = extractValue(exposeItemAttributes, '.is24qa-kaltmiete');
-  const area = extractValue(exposeItemAttributes, '.is24qa-flaeche');
-  const pricePerArea = calculatePricePerArea(price, area);
-  insertPricePerAreaToExpose(exposeItemAttributes, pricePerArea);
-}
-
-function calculatePricePerArea(price, area) {
-  return (price / area).toFixed(2);
-}
-
-function extractValue(itemAttributesElement, selector) {
-  const itemValueElement = itemAttributesElement.querySelector(selector);
-  const itemValue = itemValueElement.textContent
-    .replace('€', '')
-    .replace('m²', '')
-    .replace('.', '')
-    .replace(',', '.')
-    .trim();
-  return parseFloat(itemValue);
 }
 
 function insertPricePerAreaToRegularItem(resultListItemAttributes, pricePerArea) {
@@ -141,6 +103,29 @@ function insertPricePerAreaToGroupedItem(groupedResultListItemAttributes, priceP
   groupedResultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
 }
 
+
+// SHORTLIST PAGE /////////////////////////////////////////////////////////////
+function shortlistPageIsShown() {
+  return window.location.pathname.startsWith('/merkzettel/');
+}
+
+function analyseShortlistPage() {
+  const shortlistItems = document.getElementsByClassName('shortlist-item');
+  for (const shortlistItem of shortlistItems) {
+    handleShortlistItem(shortlistItem);
+  }
+}
+
+function handleShortlistItem(shortlistItem) {
+  const shortlistItemAttributes = shortlistItem.querySelector('.criteria .content:not(.estimated-cost-widget)');
+  const itemPriceValueElement = shortlistItemAttributes.querySelector('[data-qa="attr0-value"]');
+  const itemAreaValueElement = shortlistItemAttributes.querySelector('[data-qa="attr2-value"]');
+  const price = extractValue(itemPriceValueElement);
+  const area = extractValue(itemAreaValueElement);
+  const pricePerArea = calculatePricePerArea(price, area);
+  insertPricePerAreaToShortlistItem(shortlistItemAttributes, pricePerArea);
+}
+
 function insertPricePerAreaToShortlistItem(shortlistItemAttributes, pricePerArea) {
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
@@ -152,7 +137,23 @@ function insertPricePerAreaToShortlistItem(shortlistItemAttributes, pricePerArea
   shortlistItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
 }
 
-function insertPricePerAreaToExpose(exposeItemAttributes, pricePerArea) {
+
+// EXPOSE PAGE ////////////////////////////////////////////////////////////////
+function exposePageIsShown() {
+  return window.location.pathname.startsWith('/expose/');
+}
+
+function analyseExposePage() {
+  const exposeItemAttributes = document.getElementsByClassName('main-criteria-container')[0];
+  const itemPriceValueElement = exposeItemAttributes.querySelector('.is24qa-kaltmiete') || exposeItemAttributes.querySelector('.is24qa-kaufpreis');
+  const itemAreaValueElement = exposeItemAttributes.querySelector('.is24qa-flaeche') || exposeItemAttributes.querySelector('.is24qa-wohnflaeche-ca');
+  const price = extractValue(itemPriceValueElement);
+  const area = extractValue(itemAreaValueElement);
+  const pricePerArea = calculatePricePerArea(price, area);
+  insertPricePerAreaToExposeItem(exposeItemAttributes, pricePerArea);
+}
+
+function insertPricePerAreaToExposeItem(exposeItemAttributes, pricePerArea) {
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
     `<div class="mainCriteria flex-item">
@@ -161,6 +162,22 @@ function insertPricePerAreaToExpose(exposeItemAttributes, pricePerArea) {
     </div>`;
 
   exposeItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
+}
+
+
+// UTIL ///////////////////////////////////////////////////////////////////////
+function calculatePricePerArea(price, area) {
+  return (price / area).toFixed(2);
+}
+
+function extractValue(itemValueElement) {
+  const itemValue = itemValueElement.textContent
+    .replace('€', '')
+    .replace('m²', '')
+    .replace('.', '')
+    .replace(',', '.')
+    .trim();
+  return parseFloat(itemValue);
 }
 
 function convertPriceToText(pricePerArea) {
