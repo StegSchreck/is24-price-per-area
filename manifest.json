@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "IS24 Price Per Area",
-  "version": "1.1",
-  "description": "Show price per m² on the search result page and shortlist page of ImmobilienScout24. Not affiliated with ImmobilienScout24.",
+  "version": "1.2",
+  "description": "Show price per m² on the search result pages, the shortlist page, and the expose pages of ImmobilienScout24. Not affiliated with ImmobilienScout24.",
   "author": "Sebastian Schreck",
   "homepage_url": "https://github.com/StegSchreck/is24-price-per-area",
   "icons": {

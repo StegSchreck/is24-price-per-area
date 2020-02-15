@@ -9,6 +9,9 @@ function main() {
   if (onSearchResultPage()) {
     analyseSearchResultPage();
   }
+  if (onExpose()) {
+    handleExpose();
+  }
 }
 
 function onShortlist() {
@@ -17,6 +20,10 @@ function onShortlist() {
 
 function onSearchResultPage() {
   return window.location.pathname.startsWith('/Suche/');
+}
+
+function onExpose() {
+  return window.location.pathname.startsWith('/expose/');
 }
 
 function analyseShortlistPage() {
@@ -84,19 +91,27 @@ function handleShortlistItem(shortlistItem) {
   insertPricePerAreaToShortlistItem(shortlistItemAttributes, pricePerArea);
 }
 
+function handleExpose() {
+  const exposeItemAttributes = document.getElementsByClassName('main-criteria-container')[0];
+  const price = extractValue(exposeItemAttributes, '.is24qa-kaltmiete');
+  const area = extractValue(exposeItemAttributes, '.is24qa-flaeche');
+  const pricePerArea = calculatePricePerArea(price, area);
+  insertPricePerAreaToExpose(exposeItemAttributes, pricePerArea);
+}
+
 function calculatePricePerArea(price, area) {
   return (price / area).toFixed(2);
 }
 
-function extractValue(resultListItemAttributes, selector) {
-  const resultListItemValueElement = resultListItemAttributes.querySelector(selector);
-  const resultListItemValue = resultListItemValueElement.textContent
+function extractValue(itemAttributesElement, selector) {
+  const itemValueElement = itemAttributesElement.querySelector(selector);
+  const itemValue = itemValueElement.textContent
     .replace('€', '')
     .replace('m²', '')
     .replace('.', '')
     .replace(',', '.')
     .trim();
-  return parseFloat(resultListItemValue);
+  return parseFloat(itemValue);
 }
 
 function insertPricePerAreaToRegularItem(resultListItemAttributes, pricePerArea) {
@@ -110,23 +125,23 @@ function insertPricePerAreaToRegularItem(resultListItemAttributes, pricePerArea)
   resultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
 }
 
-function insertPricePerAreaToHiddenItem(resultListItemAttributes, pricePerArea) {
+function insertPricePerAreaToHiddenItem(hiddenResultListItemAttributes, pricePerArea) {
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
     `<span class="hidden-result__value inline-block">${pricePerAreaText}</span>`;
 
-  resultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
+  hiddenResultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
 }
 
-function insertPricePerAreaToGroupedItem(resultListItemAttributes, pricePerArea) {
+function insertPricePerAreaToGroupedItem(groupedResultListItemAttributes, pricePerArea) {
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
     `<span class="grouped-listing__criterion font-nowrap">${pricePerAreaText}</span>`;
 
-  resultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
+  groupedResultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
 }
 
-function insertPricePerAreaToShortlistItem(resultListItemAttributes, pricePerArea) {
+function insertPricePerAreaToShortlistItem(shortlistItemAttributes, pricePerArea) {
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
     `<div id="attr3-115695498" class="grid padding-vertical-s border-top">
@@ -134,7 +149,18 @@ function insertPricePerAreaToShortlistItem(resultListItemAttributes, pricePerAre
         <div data-qa="attr2-value" class="grid-item five-tenths font-ellipsis align-right">${pricePerAreaText}</div>
     </div>`;
 
-  resultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
+  shortlistItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
+}
+
+function insertPricePerAreaToExpose(exposeItemAttributes, pricePerArea) {
+  const pricePerAreaText = convertPriceToText(pricePerArea);
+  const pricePerAreaElement =
+    `<div class="mainCriteria flex-item">
+        <div class="is24-value font-semibold">${pricePerAreaText}</div>
+        <div class="is24-label font-s">Grundpreis</div>
+    </div>`;
+
+  exposeItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
 }
 
 function convertPriceToText(pricePerArea) {
