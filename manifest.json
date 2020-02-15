@@ -17,7 +17,13 @@
     {
       "matches": ["https://*.immobilienscout24.de/*"],
       "run_at": "document_end",
-      "js": ["main.js"]
+      "js": [
+        "main.js",
+        "searchResultPage.js",
+        "shortlistPage.js",
+        "exposePage.js",
+        "util.js"
+      ]
     }
   ]
 }
