@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "IS24 Price Per Area",
-  "version": "1.2",
+  "version": "2.0",
   "description": "Show price per m² on the search result pages, the shortlist page, and the expose pages of ImmobilienScout24. Not affiliated with ImmobilienScout24.",
   "author": "Sebastian Schreck",
   "homepage_url": "https://github.com/StegSchreck/is24-price-per-area",
@@ -12,6 +12,26 @@
     "48": "images/icon_48.png",
     "128": "images/icon_128.png"
   },
+  "permissions": [
+    "declarativeContent",
+    "storage"
+  ],
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
+  "page_action": {
+    "default_icon": {
+      "16": "images/icon_16.png",
+      "32": "images/icon_32.png",
+      "48": "images/icon_48.png",
+      "128": "images/icon_128.png"
+    },
+    "default_title": "IS24 Price Per Area",
+    "default_popup": "options.html"
+  },
 
   "content_scripts": [
     {
@@ -19,9 +39,9 @@
       "run_at": "document_end",
       "js": [
         "main.js",
-        "searchResultPage.js",
-        "shortlistPage.js",
-        "exposePage.js",
+        "page_objects/searchResultPage.js",
+        "page_objects/shortlistPage.js",
+        "page_objects/exposePage.js",
         "util.js"
       ]
     }

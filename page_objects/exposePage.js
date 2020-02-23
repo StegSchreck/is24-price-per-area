@@ -18,7 +18,7 @@ function insertPricePerAreaToExposeItem(exposeItemAttributes, pricePerArea) {
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
     `<div class="mainCriteria flex-item">
-        <div class="is24-value font-semibold">${pricePerAreaText}</div>
+        <div class="is24-value font-semibold x-pricePerArea">${pricePerAreaText}</div>
         <div class="is24-label font-s">Grundpreis</div>
     </div>`;
 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head><title>IS24 Price Per Area</title></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="mdl/material.min.css">
+<script defer src="mdl/material.min.js"></script>
+<body>
+
+<div id="OptionsContent" style="min-width: 350px; padding: 10px;">
+    <img class="" src="is24-price-per-area.svg" alt="" style="height: 60px; right: 1em; top: 1em; position: absolute;"/>
+
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect mdl-cell" for="ColorHighlightFeatureToggle">
+        <input id="ColorHighlightFeatureToggle" type="checkbox" class="mdl-switch__input">
+        <span class="mdl-switch__label">add color highlighting</span>
+    </label>
+
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect mdl-cell" for="ColorHighlightMethodToggle">
+        <input id="ColorHighlightMethodToggle" type="checkbox" class="mdl-switch__input">
+        <span class="mdl-switch__label">as background color</span>
+    </label>
+
+    <div class="mdl-grid mdl-grid--no-spacing" style="margin-top: 2em">
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--1-col" style="padding:0; width: 4em;">
+            <i class="material-icons mdl-color-text--green textColor">text_format</i>
+            <i class="material-icons mdl-color-text--green textBackgroundColor" hidden>font_download</i>
+            <i class="material-icons">chevron_left</i>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--1-col" style="padding:0; width: 2em;">
+            <input id="ColorHighlightLow" class="mdl-textfield__input" type="number" style="width: 2em;">
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--1-col" style="padding:0;">
+            <i class="material-icons">chevron_left</i>
+            <i class="material-icons mdl-color-text--orange textColor">text_format</i>
+            <i class="material-icons mdl-color-text--orange textBackgroundColor" hidden>font_download</i>
+            <i class="material-icons">chevron_left</i>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--1-col" style="padding:0; width: 2em;">
+            <input id="ColorHighlightHigh" class="mdl-textfield__input" type="number" style="width: 2em;">
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--1-col" style="padding:0; width: 4em;">
+            <i class="material-icons">chevron_left</i>
+            <i class="material-icons mdl-color-text--red textColor">text_format</i>
+            <i class="material-icons mdl-color-text--red textBackgroundColor" hidden>font_download</i>
+        </div>
+    </div>
+
+</div>
+
+<script src="options.js"></script>
+
+</body>
+</html>

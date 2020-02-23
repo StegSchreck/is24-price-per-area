@@ -12,4 +12,5 @@ function main() {
   if (exposePageIsShown()) {
     analyseExposePage();
   }
+  applyColorClassOnAllItems();
 }

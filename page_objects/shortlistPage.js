@@ -26,7 +26,7 @@ function insertPricePerAreaToShortlistItem(shortlistItemAttributes, pricePerArea
   const pricePerAreaElement =
     `<div id="attr3-115695498" class="grid padding-vertical-s border-top">
         <div data-qa="attr3-label" class="grid-item five-tenths font-ellipsis">Grundpreis</div>
-        <div data-qa="attr2-value" class="grid-item five-tenths font-ellipsis align-right">${pricePerAreaText}</div>
+        <div data-qa="attr2-value" class="grid-item five-tenths font-ellipsis align-right x-pricePerArea">${pricePerAreaText}</div>
     </div>`;
 
   shortlistItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);

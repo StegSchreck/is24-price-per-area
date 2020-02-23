@@ -64,7 +64,7 @@ function insertPricePerAreaToRegularItem(resultListItemAttributes, pricePerArea)
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
     `<dl class="grid-item result-list-entry__primary-criterion" role="presentation">
-    <dd class="font-nowrap font-line-xs">${pricePerAreaText}</dd>
+    <dd class="font-nowrap font-line-xs x-pricePerArea">${pricePerAreaText}</dd>
     <dt class="font-s onlyLarge">Grundpreis</dt>
     </dl>`;
 
@@ -74,7 +74,7 @@ function insertPricePerAreaToRegularItem(resultListItemAttributes, pricePerArea)
 function insertPricePerAreaToHiddenItem(hiddenResultListItemAttributes, pricePerArea) {
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
-    `<span class="hidden-result__value inline-block">${pricePerAreaText}</span>`;
+    `<span class="hidden-result__value inline-block x-pricePerArea">${pricePerAreaText}</span>`;
 
   hiddenResultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
 }
@@ -82,7 +82,7 @@ function insertPricePerAreaToHiddenItem(hiddenResultListItemAttributes, pricePer
 function insertPricePerAreaToGroupedItem(groupedResultListItemAttributes, pricePerArea) {
   const pricePerAreaText = convertPriceToText(pricePerArea);
   const pricePerAreaElement =
-    `<span class="grouped-listing__criterion font-nowrap">${pricePerAreaText}</span>`;
+    `<span class="grouped-listing__criterion font-nowrap x-pricePerArea">${pricePerAreaText}</span>`;
 
   groupedResultListItemAttributes.insertAdjacentHTML('beforeend', pricePerAreaElement);
 }

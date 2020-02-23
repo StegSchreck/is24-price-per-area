@@ -9,6 +9,8 @@ This extension is designed to only be active on `https://*.immobilienscout24.de`
 
 The implementation details of ImmobilienScout24 make it necessary to include a 2 seconds delay before displaying the price per area value.
 
+While being on ImmobilienScout24, you can choose to highlight the calculated price per area with colors. To configure the style of highlighting and the thresholds, just click on the icon of the extension in the Chrome menu. In the popup that will open, you can adjust the settings.
+
 ## Installation
 Currently, this extension is not listed on the official Chrome Web Store.
 
