@@ -6,8 +6,8 @@ function exposePageIsShown() {
 
 function analyseExposePage() {
   const exposeItemAttributes = document.getElementsByClassName('main-criteria-container')[0];
-  const itemPriceValueElement = exposeItemAttributes.querySelector('.is24qa-kaltmiete') || exposeItemAttributes.querySelector('.is24qa-kaufpreis');
-  const itemAreaValueElement = exposeItemAttributes.querySelector('.is24qa-flaeche') || exposeItemAttributes.querySelector('.is24qa-wohnflaeche-ca');
+  const itemPriceValueElement = exposeItemAttributes.querySelector('.is24qa-kaltmiete-main') || exposeItemAttributes.querySelector('.is24qa-kaufpreis-main');
+  const itemAreaValueElement = exposeItemAttributes.querySelector('.is24qa-flaeche-main') || exposeItemAttributes.querySelector('.is24qa-wohnflaeche-ca-main');
   const price = extractValue(itemPriceValueElement);
   const area = extractValue(itemAreaValueElement);
   const pricePerArea = calculatePricePerArea(price, area);
