@@ -9,7 +9,7 @@ function extractValue(itemValueElement) {
     .replace('€/m²', '')
     .replace('€', '')
     .replace('m²', '')
-    .replace('.', '')
+    .replaceAll('.', '')
     .replace(',', '.')
     .trim();
   return parseFloat(itemValue);
