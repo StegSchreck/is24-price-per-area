@@ -15,7 +15,7 @@ While being on ImmobilienScout24, you can choose to highlight the calculated pri
 The extension can be installed to your Chrome browser from the [Chrome Web Store](https://chrome.google.com/webstore/detail/mafijcfncjjmoajphbldbodbkefghgkd/).
 
 ### Alternative: Install from source
-For developing and testing, this extension can also be installed from the source code directly, using these steps:
+For developing and testing, this extension can also be installed from the source code directly, following these steps:
 
 1. clone this repository
 2. open this url in a new Chrome tab: `chrome://extensions/`
