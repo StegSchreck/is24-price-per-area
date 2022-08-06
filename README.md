@@ -11,10 +11,12 @@ The implementation details of ImmobilienScout24 make it necessary to include a 2
 
 While being on ImmobilienScout24, you can choose to highlight the calculated price per area with colors. To configure the style of highlighting and the thresholds, just click on the icon of the extension in the Chrome menu. In the popup that will open, you can adjust the settings.
 
-## Installation
-Currently, this extension is not listed on the official Chrome Web Store.
+## Installation from Chrome Web Store
+The extension can be installed to your Chrome browser from the [Chrome Web Store](https://chrome.google.com/webstore/detail/mafijcfncjjmoajphbldbodbkefghgkd/).
 
-To use this extension, please follow the following steps:
+### Alternative: Install from source
+For developing and testing, this extension can also be installed from the source code directly, using these steps:
+
 1. clone this repository
 2. open this url in a new Chrome tab: `chrome://extensions/`
 3. in the top-right corner click the switch to enable to the "Developer mode"
